@@ -4,4 +4,5 @@ from .models import Post
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-  pass
+  list_display = ('title', 'body', 'poster', 'created_at', 'updated_at')
+  list_filter = ('poster', 'created_at', 'updated_at')
