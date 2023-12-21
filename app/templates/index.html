@@ -1,5 +1,13 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Members-only!</h1>
+  <p>Number of posts: {{ posts_count }}</p>
+
+  {% for post in posts %}
+  <div class="post">
+    <p>{{ post.poster }}</p>
+    <p>{{ post.title }}</p>
+    <p>{{ post.body }}</p>
+  </div>
+  {% endfor %}
 {% endblock %}

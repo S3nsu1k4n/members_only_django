@@ -5,4 +5,10 @@ from .models import Post
 
 
 def index(request: HttpRequest) -> HttpResponse:
-  return render(request, 'index.html')
+  posts = Post.objects.all()
+
+  context = {
+    'posts': posts,
+    'posts_count': posts.count(),
+  }
+  return render(request, 'index.html', context=context)
