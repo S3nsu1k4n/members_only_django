@@ -6,6 +6,21 @@
   <title>Members-only!</title>
 </head>
 <body>
+  <h1>Members-only!</h1>
+  <nav>
+    {% if user.is_authenticated %}
+      <p>User: {{ user.get_username }}</p>
+      <div>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <input type="submit" value="Logout">
+        </form>
+      </div>
+      <p><a href="{% url 'post-create' %}">New Post</a></p>
+    {% else %}
+    <p><a href="{% url 'login' %}?next={{ request.path }}">Login</a></p>
+    {% endif %}
+  </nav>
   {% block content %}{% endblock %}
 </body>
 </html>
