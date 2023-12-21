@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.http import HttpRequest, HttpResponse
-from django.forms import ModelForm
 from .models import Post
 # Create your views here.
 
