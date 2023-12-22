@@ -1,16 +1,37 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <p>Number of total posts: {{ posts_count }}</p>
-  <p>Number of posts: {{ user_posts_count }}</p>
-
-  {% for post in posts %}
-  <div class="post">
+  <nav>
     {% if user.is_authenticated %}
-      <p>{{ post.poster }}</p>
+      <p>User: {{ user.get_username }}</p>
+      <div>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <input type="submit" value="Logout">
+        </form>
+      </div>
+      <div><a href="{% url 'post-create' %}">New Post</a></div>
+    {% else %}
+    <p><a href="{% url 'login' %}?next={{ request.path }}">Login</a></p>
     {% endif %}
-      <p>{{ post.title }}</p>
-    <p>{{ post.body }}</p>
+</nav>
+
+  <div class="post-counts">
+    <p>Number of total posts: {{ posts_count }}</p>
+    {% if user.is_authenticated %}
+      <p>Number of posts: {{ user_posts_count }}</p>
+    {% endif %}
   </div>
-  {% endfor %}
+
+  <div class="posts">
+    {% for post in posts %}
+    <div class="post">
+      {% if user.is_authenticated %}
+        <p class="poster">{{ post.poster }}</p>
+      {% endif %}
+      <p class="post-title">{{ post.title }}</p>
+      <p class="post-body">{{ post.body }}</p>
+    </div>
+    {% endfor %}
+  </div>
 {% endblock %}
