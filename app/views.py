@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.http import HttpRequest, HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from .models import Post
 # Create your views here.
@@ -22,7 +23,7 @@ def index(request: HttpRequest) -> HttpResponse:
   return render(request, 'index.html', context=context)
 
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
   model = Post
   fields = ['title', 'body']
   success_url = reverse_lazy('index')
